@@ -1,21 +1,20 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ShoppingList from "../pages/shoppingList";
-import ListItens from "../pages/listItens";
+import ShoppingEdit from "../pages/shoppingEdit";
 
-
-
-function RouterApp(){
-    return (
-        <BrowserRouter> 
-        <Routes>
-            <Route path="/" element={<ShoppingList/>}> </Route>
-            <Route path="/listItens" element={<ListItens/>}> </Route>
-         
-        </Routes>
-        </BrowserRouter>
-
-
-    )
+function RouterApp() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<ShoppingList />}>
+          {" "}
+        </Route>
+        <Route path="/listItens" element={<ShoppingEdit />}>
+          {" "}
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default RouterApp;
