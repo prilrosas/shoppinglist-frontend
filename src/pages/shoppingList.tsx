@@ -1,73 +1,57 @@
 import {
-  BottomNavigation,
-  BottomNavigationAction,
   Box,
   Button,
   Card,
   CardContent,
   CssBaseline,
-  Fab,
-  List,
   Paper,
   Typography,
 } from "@mui/material";
-import NavigationIcon from "@mui/icons-material/Navigation";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ArchiveIcon from "@mui/icons-material/Archive";
-import RestoreIcon from "@mui/icons-material/Restore";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ShoppingListService } from "../services/shoppinglist.service";
+import { ShoppingListModel } from "../models/shoppinglist.model";
 
 function ShoppingList() {
-  return (
-    // <div>
-    //   <h1>Lista de compras</h1>
-    //   <Link to="./listItens">Itens</Link> {"  "}
-    // </div>
+  const navigate = useNavigate();
+  const [listShopping, setListShopping] = useState<ShoppingListModel[]>([]);
 
+  useEffect(() => {
+    listShoppingAll();
+  }, []);
+  function handleClick(event: any) {
+    console.log("CLIQUEI AQUIIIIIIII");
+    navigate("./listItens");
+  }
+
+  function listShoppingAll() {
+    new ShoppingListService()
+      .listAll()
+      .then((e) => {
+        setListShopping(e.data);
+      })
+      .catch((err) => {
+        console.error("ops! ocorreu um erro" + err);
+      });
+  }
+
+  return (
     <Box sx={{ pb: 7 }}>
       <CssBaseline />
-      <Card sx={{ minWidth: "100px", margin: 2 }}>
-        <CardContent component={Link} to="./listItens">
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Lista de compras
-          </Typography>
-        </CardContent>
-      </Card>
-      <Card sx={{ minWidth: "100px", margin: 2 }}>
-        <CardContent component={Link} to="./listItens">
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Lista de compras
-          </Typography>
-        </CardContent>
-      </Card>
-      <Card sx={{ minWidth: "100px", margin: 2 }}>
-        <CardContent component={Link} to="./listItens">
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Lista de compras
-          </Typography>
-        </CardContent>
-      </Card>
-      <Card sx={{ minWidth: "100px", margin: 2 }}>
-        <CardContent component={Link} to="./listItens">
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Lista de compras
-          </Typography>
-        </CardContent>
-      </Card>
-      <Card sx={{ minWidth: "100px", margin: 2 }}>
-        <CardContent component={Link} to="./listItens">
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Lista de compras
-          </Typography>
-        </CardContent>
-      </Card>
-      <Card sx={{ minWidth: "100px", margin: 2 }}>
-        <CardContent component={Link} to="./listItens">
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Lista de compras
-          </Typography>
-        </CardContent>
-      </Card>
+      {listShopping.map((e) => (
+        <Card sx={{ minWidth: "100px", margin: 2 }} onClick={handleClick}>
+          <CardContent>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              {e.title}
+            </Typography>
+          </CardContent>
+        </Card>
+      ))}
+
       <Paper
         sx={{
           position: "fixed",
