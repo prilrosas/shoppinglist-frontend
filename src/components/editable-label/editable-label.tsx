@@ -46,7 +46,8 @@ const EditableLabel = ({
   if (isEditing) {
     return (
       <TextField
-        defaultValue={value}
+        placeholder="Título"
+        //defaultValue={value}
         onChange={handleChange}
         onBlur={handleFocus}
         onKeyDown={handleKeyDown}

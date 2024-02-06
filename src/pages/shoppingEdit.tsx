@@ -16,7 +16,12 @@ function ShoppingEdit() {
           setText(value || "default value");
         }}
       />
-      <Button variant="contained" component={Link} to="/">
+      <Button
+        sx={{ backgroundColor: "#74c0d6" }}
+        variant="contained"
+        component={Link}
+        to="/"
+      >
         Voltar
       </Button>
     </div>
